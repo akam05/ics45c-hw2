@@ -9,13 +9,18 @@ Coins::Coins(int q, int d, int n, int p) : quarters(q), dimes(d), nickels(n), pe
 
 void Coins::deposit_coins(Coins& coins)
 {
-	quarters -= coins.quarters;
-	dimes -= coins.dimes;
-	nickels -=coins.nickels;
-	pennies -= coins.pennies;
+	quarters += coins.quarters;
+	dimes += coins.dimes;
+	nickels +=coins.nickels;
+	pennies += coins.pennies;
+	
+	coins.quarters = 0;
+    coins.dimes = 0;
+    coins.nickels = 0;
+    coins.pennies = 0;
 }
 
-bool Coins::has_exact_change_for_coins(const Coins& coins) const 
+bool Coins::has_exact_change_for_coins(const Coins& coins) const
 {
 	int need4 = 0;
 	if (quarters >= coins.quarters) {
@@ -37,7 +42,7 @@ bool Coins::has_exact_change_for_coins(const Coins& coins) const
 	return false;
 }
 
-Coins Coins::extract_exact_change(const Coins& coins) const
+Coins Coins::extract_exact_change(const Coins& coins)
 {
 	if (!has_exact_change_for_coins(coins)) 
 	{
@@ -52,7 +57,7 @@ Coins Coins::extract_exact_change(const Coins& coins) const
 	return coins;
 }
 
-int Coins::total_value_in_cents()
+int Coins::total_value_in_cents() const
 {
 	int total = 0;
 	total += quarters * CENTS_PER_QUARTER;
@@ -97,4 +102,45 @@ Coins coins_required_for_cents(int amount_in_cents)
 	return Coins(q, d, n, p);
 }
 
+void print_cents(int cents, ostream& out)
+{
+	int decimalPlace = 0;
+	int wholePlace = 0;
+	
+	wholePlace = cents / 100;
+	decimalPlace = cents % 100;
 
+	out << "$" << wholePlace << ".";
+
+	if (decimalPlace < 10) {
+		out < "0";
+	}
+	out << decimalPlace;
+}
+
+Coins ask_for_coins(istream& in, ostream& out)
+{
+	int q = 0;
+	int d = 0;
+	int n = 0;
+	int p = 0;
+
+	out << "Quarters?";
+	in >> q;
+
+	out << "Dimes?";
+	in >> d;
+
+	out << "Nickels?";
+	in >> n;
+
+	out << "Pennies"
+	in >> p;
+
+	return Coins(q,d,n,p);
+}
+
+void coins_menu(istream& in, ostream& out)
+{
+
+}

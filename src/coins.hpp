@@ -56,6 +56,12 @@ private:
 // An appropriate output stream inserter for a Coins object.
 ostream& operator<<(ostream& out, const Coins& coins);
 
+// coins_required_ffor_cents() can use math or while loops
+// to decide how to satisfy the need for amount_in_cents.
+// First take as many quarters, then as many dimes, etc.
+// E.g., coins_required_for_cents(117) returns Coins(4,1,1,2).
+Coins coins_required_for_cents(int amount_in_cents);
+
 // Prints the given number of cents in the format "$x.xx"
 // to the given output stream. 
 // print_cents(3) prints "$0.03", print_cents(509) prints "$5.09",
