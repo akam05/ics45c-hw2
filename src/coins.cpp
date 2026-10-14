@@ -142,5 +142,29 @@ Coins ask_for_coins(istream& in, ostream& out)
 
 void coins_menu(istream& in, ostream& out)
 {
+	commands = 0;
+	while (commands != 4)
+	{
+		Coins wallet(0,0,0,0);
 
+		out << "Type 1 for deposit, 2 for extract, 3 for print, 4 for exit";
+		
+		in >> commands;
+		
+		if (commands==1) {
+			Coins deposit = ask_for_coins(in,out);
+			wallet.deposit_coins(deposit);
+		} else if (commands==2) {
+			Coins extract = ask_for_coins(in, out);
+			if (has_exact_change_for_coins == true) {
+				wallet.extract_exact_change(extract);
+			} else {
+				out << "Low balance";
+			}
+		} else if (commands == 3) {
+			int cents = total_value_in_cents();
+			print_cents(cents,out);
+		}
+
+	}
 }
