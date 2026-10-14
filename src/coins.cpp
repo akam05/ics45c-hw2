@@ -113,7 +113,7 @@ void print_cents(int cents, ostream& out)
 	out << "$" << wholePlace << ".";
 
 	if (decimalPlace < 10) {
-		out < "0";
+		out << "0";
 	}
 	out << decimalPlace;
 }
@@ -134,7 +134,7 @@ Coins ask_for_coins(istream& in, ostream& out)
 	out << "Nickels?";
 	in >> n;
 
-	out << "Pennies"
+	out << "Pennies";
 	in >> p;
 
 	return Coins(q,d,n,p);
@@ -142,11 +142,10 @@ Coins ask_for_coins(istream& in, ostream& out)
 
 void coins_menu(istream& in, ostream& out)
 {
-	commands = 0;
+	int commands = 0;
+	Coins(wallet(0,0,0,0);
 	while (commands != 4)
 	{
-		Coins wallet(0,0,0,0);
-
 		out << "Type 1 for deposit, 2 for extract, 3 for print, 4 for exit";
 		
 		in >> commands;
@@ -156,13 +155,13 @@ void coins_menu(istream& in, ostream& out)
 			wallet.deposit_coins(deposit);
 		} else if (commands==2) {
 			Coins extract = ask_for_coins(in, out);
-			if (has_exact_change_for_coins == true) {
+			if (wallet.has_exact_change_for_coins == true) {
 				wallet.extract_exact_change(extract);
 			} else {
 				out << "Low balance";
 			}
 		} else if (commands == 3) {
-			int cents = total_value_in_cents();
+			int cents = wallet.total_value_in_cents();
 			print_cents(cents,out);
 		}
 
