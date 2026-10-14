@@ -1,17 +1,17 @@
 // This "include guard" protects this header from being included twice:
-#ifdef COINS_HPP
+#ifndef COINS_HPP
 #define COINS_HPP
 
 // <iosfwd> is a stripped-down version of <iostream>, 
 // usually enough for a header,
 // but not enough to actually work with streams. 
-# include <iosfwd>
+#include <iosfwd>
 
 // Some useful constants for conversions - 
 // don't use magic numbers in your code!
-constexpr int CENT_PER_QUARTER = 25;
-constexpr int CENT_PER_DIME = 10; 
-constexpr int CENT_PER_NICKEL = 5;
+constexpr int CENTS_PER_QUARTER = 25;
+constexpr int CENTS_PER_DIME = 10; 
+constexpr int CENTS_PER_NICKEL = 5;
 
 using namespace std;
 class Coins {

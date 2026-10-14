@@ -14,3 +14,8 @@ void Coins::print(ostream& out) const
 	<< pennies << " pennies";
 }
 
+ostream& operator<<(ostream& out, const Coins& coins)
+{
+	coins.print(out);
+	return out;
+}
