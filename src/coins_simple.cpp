@@ -18,7 +18,6 @@ int main() {
     cout << "I started with " << pocket << " in my pocket." << endl;
 
     Coins pay_for_candy =
-
         pocket.extract_exact_change(coins_required_for_cents(CENTS_FOR_CANDYBAR));
 
     cout << "I bought a candy bar for " << CENTS_FOR_CANDYBAR << " cents using "
@@ -26,3 +25,4 @@ int main() {
          << pay_for_candy << "." << endl;
 
     cout << "I have " << pocket << " left in my pocket." << endl;
+}
