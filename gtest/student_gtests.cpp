@@ -10,23 +10,62 @@
 // --------------------------------------------------------------------------------------- //
 
 #include <gtest/gtest.h>
-
 #include <sstream>
-
 #include "word_count.hpp"
 
+using namespace std;
+
 TEST(WordCountTests, StopwordsAreLoadedCaseInsensitively) {
-    std::stringstream stopwords{"The OVER\n"};
+    stringstream stopwords{"The OVER\n"};
     const auto loaded = load_stopwords(stopwords);
     EXPECT_TRUE(loaded.contains("the"));
     EXPECT_TRUE(loaded.contains("over"));
 }
 
 TEST(WordCountTests, WordsAreCountedCaseInsensitively) {
-    std::stringstream document{"Apple apple APPLE pear"};
+    stringstream document{"Apple apple APPLE pear"};
     const auto counts = count_words(document, {});
     EXPECT_EQ(counts.at("apple"), 3);
     EXPECT_EQ(counts.at("pear"), 1);
 }
 
 // ADD YOUR TESTS HERE:
+TEST(WordCountTests, ToLowercase)
+{
+	string text = "TEst";
+	to_lowercase(text);
+
+	EXPECT_EQ(text, "test");
+}
+
+TEST(WordCountTests, StopWords)
+{
+	stringstream document{"testing the testing document way too late"};
+	set<string> stopwords{"the", "way", "too"};
+	const auto counts = count_words(document, stopwords);
+
+	EXPECT_EQ(counts.at("testing"), 2);
+	EXPECT_EQ(counts.at("late"), 1);
+	EXPECT_EQ(counts.at("document"), 1);
+	EXPECT_FALSE(counts.contains("the"));
+	EXPECT_FALSE(counts.contains("way"));
+	EXPECT_FALSE(counts.contains("too"));
+}
+
+TEST(WordCountTests, EmptyDocument)
+{
+	stringstream document{""};
+	const auto counts = count_words(document, {});
+
+	EXPECT_TRUE(counts.empty());
+}
+
+TEST(WordCountTests, AllWordsAreStopWords)
+{
+	stringstream document{"TEST test testing"};
+	set<string> stopwords{"test", "testing"};
+
+	const auto counts = count_words(document, stopwords);
+	
+	EXPECT_TRUE(counts.empty());
+}
