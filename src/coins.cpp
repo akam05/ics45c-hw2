@@ -128,7 +128,7 @@ Coins ask_for_coins(istream& in, ostream& out)
 	out << "Quarters?";
 	in >> q;
 
-	out << "Dimes?";
+	out << "Dimes";
 	in >> d;
 
 	out << "Nickels?";
@@ -146,7 +146,7 @@ void coins_menu(istream& in, ostream& out)
 	Coins wallet(0,0,0,0);
 	while (commands != 4)
 	{
-		out << "Type 1 for deposit, 2 for extract, 3 for print, 4 for exit";
+		out << "Type 1 for deposit, 2 for extract, 3 for balance, 4 for exit";
 		
 		in >> commands;
 		
